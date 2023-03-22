@@ -21,9 +21,13 @@ $white-smoke: rgb(245, 245, 245); // #f5f5f5
 $snow: rgb(251, 251, 251); //#fbfbfb
 $white-smoke2: rgb(247, 247, 247); // #f7f7f7
 $raisin-black: rgb(33, 33, 33); //#212121
+
+$crayola: rgb(248,112,48); //#f87030
+$sunglow: rgb(248,212,48);  //#f8d430
+
 // Overlays
 $white-overlay04: rgba($white, 0.4);
 $raisin-black007: rgba($raisin-black, 0.07);
 $black-012: rgba($black, 0.12);
 // Linears
-$primary-linear: linear-gradient(88.54deg, $la-salle-green -1.55%, $green-pantone 100.28%);
+$primary-linear: linear-gradient(88.54deg, $crayola -1.55%, $sunglow 100.28%);

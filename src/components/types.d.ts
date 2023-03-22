@@ -22,6 +22,7 @@ type ColorStyle =
   | 'smokyBlack'
   | 'manatee'
   | 'laSalleGreen'
+  | 'crayola'
   | 'eerieBlack'
   | 'stormcloud'
   | 'gunmetal'

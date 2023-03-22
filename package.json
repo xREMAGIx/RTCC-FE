@@ -52,7 +52,8 @@
     "postinstall-postinstall": "^2.1.0",
     "sass": "^1.59.2",
     "stylelint": "^15.2.0",
-    "stylelint-config-sass-guidelines": "^10.0.0"
+    "stylelint-config-sass-guidelines": "^10.0.0",
+    "stylelint-order": "^6.0.3"
   },
   "resolutions": {
     "babel-loader": "8.2.5"

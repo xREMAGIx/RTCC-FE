@@ -142,9 +142,20 @@
     justify-content: $justify-content;
 }
 
+
 $colors-design: (
     'white': $white,
     'black': $black,
+    'smokyBlack': $smoky-black,
+    'manatee': $manatee,
+    'laSalleGreen': $la-salle-green,
+    'crayola': $crayola,
+    'eerieBlack': $eerie-black,
+    'stormcloud': $stormcloud,
+    'gunmetal': $gunmetal,
+    'redOrange': $red-orange,
+    'jet': $jet,
+    'grayx11':$grayx11,
 );
 
 @mixin style-color {
