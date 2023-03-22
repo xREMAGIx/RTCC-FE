@@ -1,0 +1,156 @@
+.a-icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+
+    &-12 {
+        height: rem(12);
+        width: rem(12);
+    }
+
+    &-16 {
+        height: rem(16);
+        width: rem(16);
+    }
+
+    &-18 {
+        height: rem(18);
+        width: rem(18);
+    }
+
+    &-20 {
+        height: rem(20);
+        width: rem(20);
+    }
+
+    &-24 {
+        height: rem(24);
+        width: rem(24);
+    }
+
+    &-28 {
+        height: rem(28);
+        width: rem(28);
+    }
+
+    &-32 {
+        height: rem(32);
+        width: rem(32);
+    }
+
+    &-36 {
+        height: rem(36);
+        width: rem(36);
+    }
+
+    &-50 {
+        height: rem(50);
+        width: rem(50);
+    }
+
+    &-eysLogin {
+        background-image: url('~assets/icons/ic_eyeLogin.svg');
+    }
+
+    &-backBlack {
+        background-image: url('~assets/icons/ic_backBlack.svg');
+    }
+
+    &-logOut {
+        background-image: url('~assets/icons/ic_logOut.svg');
+    }
+
+    &-dropDown {
+        background-image: url('~assets/icons/ic_dropDown.svg');
+    }
+
+    &-close {
+        background-image: url('~assets/icons/ic_close.svg');
+    }
+
+    &-closeWhite {
+        background-image: url('~assets/icons/ic_close_white.svg');
+    }
+
+    &-arrowItemRight {
+        background-image: url('~assets/icons/ic_arrow_item_right.svg');
+    }
+
+    &-chevronUp {
+        background-image: url('~assets/icons/ic_chevron_up.svg');
+    }
+
+    &-chevronNext {
+        background-image: url('~assets/icons/ic_chevron_next.svg');
+    }
+
+    &-arrowItemLeft {
+        background-image: url('~assets/icons/ic_arrow_item_left.svg');
+    }
+
+    &-checkIn {
+        background-image: url('~assets/icons/ic_check_in.svg');
+    }
+
+    &-posm {
+        background-image: url('~assets/icons/ic_posm.svg');
+    }
+
+    &-hr {
+        background-image: url('~assets/icons/ic_hr.svg');
+    }
+
+    &-startReport {
+        background-image: url('~assets/icons/ic_start_report.svg');
+    }
+
+    &-menuCamera {
+        background-image: url('~assets/icons/ic_menu_camera.svg');
+    }
+
+    &-endReport {
+        background-image: url('~assets/icons/ic_end_report.svg');
+    }
+
+    &-survey {
+        background-image: url('~assets/icons/ic_survey.svg');
+    }
+
+    &-reportCamera {
+        background-image: url('~assets/icons/ic_report_camera.svg');
+    }
+
+    &-checkout {
+        background-image: url('~assets/icons/ic_checkout.svg');
+    }
+
+    &-cameraWhite {
+        background-image: url('~assets/icons/ic_camera_white.svg');
+    }
+
+    &-arrowCirclePrevWhite {
+        background-image: url('~assets/icons/ic_arrow_circle_prev_white.svg');
+    }
+
+    &-arrowCircleNextWhite {
+        background-image: url('~assets/icons/ic_arrow_circle_next_white.svg');
+    }
+    
+    &-arrowPrevWhite {
+        background-image: url('~assets/icons/ic_arrow_prev_white.svg');
+    }
+    
+    &-cameraGreen {
+        background-image: url('~assets/icons/ic_camera_green.svg');
+    }
+
+    &-loading {
+        background-image: url('~assets/images/loading.gif');
+    }
+
+    &-checkoutWhite {
+        background-image: url('~assets/icons/ic_checkout_white.svg');
+    }
+
+}

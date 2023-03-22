@@ -1,0 +1,55 @@
+.a-text-area {
+    $root: &;
+  
+    &_errorMessage {
+        color: $red-orange;
+        font-weight: 500;
+        margin-top: rem(2);
+        @include font-base(12, 16);
+    }
+  
+    &_label {
+        @include font-base(16, 24);
+        color: $jet;
+        display: inline-block;
+        font-weight: 600;
+        margin-bottom: rem(12);
+    }
+  
+    &_inputele {
+        border: 1px solid $anti-flash-white;
+        border-radius: rem(4);
+        box-sizing: border-box;
+        font-weight: 400;
+        color: $jet;
+        margin: 0;
+        outline: none;
+        padding: rem(10) rem(16);
+        resize: none;
+        transition: all $transition linear;
+        width: 100%;
+        @include font-base(14, 20);
+  
+        &::placeholder {
+            color: $manatee;
+        }
+  
+        &:disabled {
+            cursor: not-allowed;
+            background-color: $anti-flash-white1;
+            border: 1px solid $gainsboro;
+        }
+    }
+  
+    &-error {
+        #{$root}_inputele {
+            border: 1px solid $red-orange;
+            color: $red-orange;
+            background-color: $seashell;
+        }
+        #{$root}_label {
+            color: $red-orange;
+        }
+    }
+
+}

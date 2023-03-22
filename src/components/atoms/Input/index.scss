@@ -1,0 +1,90 @@
+.a-input {
+    $root: &;
+    position: relative;
+
+    &_label {
+        display: flex;
+
+        &-required {
+            color: $red-orange;
+            margin-left: rem(4);
+            @include font-base(16, 24);
+        }
+    }
+
+    &_label,
+    &_subLabel {
+        margin-bottom: rem(12);
+    }
+
+    &_wrap {
+        position: relative;
+    }
+
+    &_input {
+        appearance: none;
+        margin: 0;
+        outline: none;
+        transition: all $transition linear;
+        width: 100%;
+        color: $gunmetal2;
+        background: $white;
+        border: rem(1) solid $gainsboro;
+        border-radius: rem(4);
+        padding: rem(14) rem(16);
+        font-weight: 500;
+        @include font-base(14, 20);
+
+        &::placeholder {
+            color: $manatee;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            background: $anti-flash-white1;
+        }
+    }
+
+    &-password {
+        #{$root}_input {
+            padding-right: rem(62);
+        }
+    }
+
+    &-error {        
+        #{$root}_input {
+            border-color: $red-orange !important;
+        
+            &::placeholder {
+                color: $red-orange;
+            }
+        }
+    }
+
+    &_messageError {
+        margin-top: rem(4);
+    }
+
+    &_showPassword {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: rem(18);
+        border: 0;
+        background: transparent;
+        display: flex;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    /* stylelint-disable-next-line selector-no-qualifying-type */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+}

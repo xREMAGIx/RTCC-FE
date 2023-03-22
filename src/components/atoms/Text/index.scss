@@ -1,0 +1,21 @@
+.a-text {
+    $root: &;
+    font-weight: 400;
+    
+    &-14x20 {
+        @include font-base(14, 20);
+    }
+
+    &-16x24 {
+        @include font-base(16, 24);
+    }
+
+    &-12x14 {
+        @include font-base(12, 14);
+    }
+
+    @include style-color();
+    @include style-general();
+    @include style-font-weight();
+    // @include style-font(); //waiting import font
+}

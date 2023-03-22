@@ -1,0 +1,85 @@
+.a-button {
+    $root: &;
+    @include reset-button();
+    position: relative;
+    transition: $transition-long ease;
+    border-radius: rem(4);
+    width: 100%;
+    @include adjust-flex(center, center);
+    white-space: nowrap;
+    padding: rem(12);
+
+    &:not(:disabled) {
+        &:hover,
+        &:focus {
+            opacity: 0.8;
+        }
+    }
+
+    &_loadingIcon {
+        width: rem(28);
+    }
+    
+    &_wrapper {
+        @include adjust-flex(center, center);
+    }
+
+    &_icon {
+        margin-right: rem(6);
+    }
+
+    &-sm {
+        height: rem(32);
+    }
+
+    &-md {
+        height: rem(40);
+    }
+
+    &-lg {
+        height: rem(48);
+    }
+
+    &-primary {
+        background: $primary-linear;
+    }
+
+    &-secondary {
+        border: 1px solid $grayx11;
+        background: $gainsboro;
+    }
+
+    &-outlineGreen {
+        background: $white;
+        border: 1px solid $la-salle-green;
+    }
+
+    &-transparent {
+        background: transparent;
+    }
+
+    &-inline {
+        width: auto;
+    }
+
+
+    &-error {
+        background: $red-orange;
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        border: 1px solid $gainsboro2;
+        backdrop-filter: blur(10px);
+        background: $white-smoke;
+
+        .a-text {
+            color: rgba($black, 0.25);
+        }
+
+        .a-icon {
+            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(287deg) brightness(104%) contrast(104%);
+        }
+    }
+}

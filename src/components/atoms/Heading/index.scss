@@ -1,0 +1,20 @@
+.a-heading {
+    $root: &;
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-weight: 400;
+
+    &-32x42 {
+        @include font-base(32, 42);
+    }
+
+    &-20x30 {
+        @include font-base(20, 30);
+    }
+
+    @include style-color();
+    @include style-general();
+    @include style-font-weight();
+    // @include style-font(); //waiting import font
+}

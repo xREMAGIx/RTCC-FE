@@ -1,0 +1,30 @@
+.a-loading {
+    $root: &;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: rem(10);
+    margin-top: rem(10);
+  
+    &_loadingIcon {
+        height: rem(28);
+        width: rem(28);
+    }
+  
+    &-fullScreen {
+        background-color: $white-overlay04;
+        height: 100vh;
+        left: 0;
+        margin: 0;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        z-index: $z-loading;
+  
+        #{$root}_loadingIcon {
+            height: rem(50);
+            width: rem(50);
+        }
+    }
+}
