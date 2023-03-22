@@ -1,0 +1,25 @@
+.o-container {
+    padding-left: rem(16);
+    padding-right: rem(16);
+
+    @include break-min(1366px) {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1366px;
+        padding-left: rem(130);
+        padding-right: rem(130);
+    }
+
+    &-noPaddingRight {
+        padding-right: 0;
+    }
+
+    &-noPaddingLeft {
+        padding-left: 0;
+    }
+
+    &-fullScreen {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

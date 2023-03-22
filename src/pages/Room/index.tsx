@@ -1,14 +1,15 @@
 import Editor from '@monaco-editor/react';
-import { editor } from 'monaco-editor';
 import React, { useRef } from 'react';
 import { MonacoBinding } from 'y-monaco';
 import { WebrtcProvider } from 'y-webrtc';
 import * as Y from 'yjs';
+
+import { MonacoStandaloneCodeEditor } from './types';
 // Setup Monaco Editor
 // Attach YJS Text to Monaco Editor
 
 function App() {
-  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const editorRef = useRef<MonacoStandaloneCodeEditor | null>(null);
 
   // Editor value -> YJS Text value (A text value shared by multiple people)
   // One person deletes text -> Deletes from the overall shared text value
@@ -16,7 +17,7 @@ function App() {
 
   // Initialize YJS, tell it to listen to our Monaco instance for changes.
 
-  const handleEditorDidMount = (currentEditor: editor.IStandaloneCodeEditor) => {
+  const handleEditorDidMount = (currentEditor: MonacoStandaloneCodeEditor) => {
     editorRef.current = currentEditor;
     // Initialize YJS
     const doc = new Y.Doc(); // a collection of shared objects -> Text
@@ -43,7 +44,7 @@ function App() {
       height="100vh"
       width="100vw"
       theme="vs-dark"
-      defaultLanguage="JavaScript"
+      defaultLanguage="javascript"
       onMount={handleEditorDidMount}
     />
   );
