@@ -12,7 +12,7 @@ import { privateRoutes, routes } from 'routes';
 import { getAccessToken } from 'services/common/storage';
 import { store } from 'store';
 import { useAppDispatch } from 'store/hooks';
-import { DEFAULT_QUERY_OPTION } from 'utils/constants';
+import { DEFAULT_QUERY_OPTION, ROUTES } from 'utils/constants';
 
 const PrivateRoute: React.FC<RouteProps> = ({
   path, index, ...props
@@ -28,7 +28,7 @@ const PrivateRoute: React.FC<RouteProps> = ({
   }, [dispatch, token]);
 
   if (!token) {
-    return <Navigate to="/welcome" state={{ from: index ? '/' : path }} replace />;
+    return <Navigate to={`/${ROUTES.WELCOME}`} state={{ from: index ? '/' : path }} replace />;
   }
 
   return (

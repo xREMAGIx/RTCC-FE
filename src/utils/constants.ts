@@ -10,6 +10,10 @@ export const ROUTES = {
   LOGIN: 'login',
   WELCOME: 'welcome',
   ROOM: 'room',
+  REGISTER: 'register',
 };
 
 export type ConstantRoutesCodes = keyof typeof ROUTES;
+
+export const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+export const PHONE_REGEX = /^0[1-9]\d{8}$/;

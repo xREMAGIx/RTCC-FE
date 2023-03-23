@@ -6,6 +6,7 @@ const Home = React.lazy(() => import('pages/Home'));
 const Login = React.lazy(() => import('pages/Login'));
 const Welcome = React.lazy(() => import('pages/Welcome'));
 const Room = React.lazy(() => import('pages/Room'));
+const Register = React.lazy(() => import('pages/Register'));
 
 export const routes = [
   {
@@ -15,6 +16,10 @@ export const routes = [
   {
     path: ROUTES.LOGIN,
     element: <Login />,
+  },
+  {
+    path: ROUTES.REGISTER,
+    element: <Register />,
   },
 ];
 
