@@ -1,13 +1,17 @@
+import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Button from 'components/atoms/Button';
 import Heading from 'components/atoms/Heading';
 import Input from 'components/atoms/Input';
 import Text from 'components/atoms/Text';
 import Container from 'components/organisms/Container';
-import { EMAIL_REGEX } from 'utils/constants';
+import { registerUserService } from 'services/user';
+import { EMAIL_REGEX, TOAST_SUCCESS_MESSAGE } from 'utils/constants';
+import { userKeys } from 'utils/queryKeys';
 
 type RegisterFormTypes = {
   email: string;
@@ -28,9 +32,24 @@ const Register: React.FC = () => {
     },
   });
 
+  //* React-query
+  const {
+    mutate: registerMutate,
+    isLoading: registerLoading,
+  } = useMutation(
+    userKeys.register(),
+    registerUserService,
+    {
+      onSuccess: async () => {
+        method.reset();
+        toast.success(TOAST_SUCCESS_MESSAGE.REGISTER);
+      },
+    }
+  );
+
   //* Functions
   const customSubmit = (data: RegisterFormTypes) => {
-    console.log(data);
+    registerMutate(data);
   };
 
   return (
@@ -111,7 +130,7 @@ const Register: React.FC = () => {
                   <Button
                     modifiers={['primary', 'lg']}
                     type="submit"
-                    loading={false}
+                    loading={registerLoading}
                     onClick={method.handleSubmit(customSubmit)}
                   >
                     <Text modifiers={['16x24', '600', 'white', 'center']} content="Register" />
