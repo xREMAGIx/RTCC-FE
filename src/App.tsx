@@ -84,7 +84,9 @@ const AppWrapper: React.FC = () => (
   <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <App />
-      <ToastContainer />
+      <ToastContainer
+        autoClose={1000}
+      />
     </QueryClientProvider>
   </Provider>
 );

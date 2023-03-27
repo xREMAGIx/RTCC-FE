@@ -1,8 +1,10 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
 
 import Button from 'components/atoms/Button';
 import Heading from 'components/atoms/Heading';
@@ -10,14 +12,26 @@ import Input from 'components/atoms/Input';
 import Text from 'components/atoms/Text';
 import Container from 'components/organisms/Container';
 import { registerUserService } from 'services/user';
-import { EMAIL_REGEX, TOAST_SUCCESS_MESSAGE } from 'utils/constants';
+import { TOAST_ERROR_MESSAGE, TOAST_SUCCESS_MESSAGE } from 'utils/constants';
 import { userKeys } from 'utils/queryKeys';
 
 type RegisterFormTypes = {
   email: string;
   username: string;
   password: string;
+  confirmPassword: string;
 };
+
+export const schema = yup.object({
+  email: yup.string().email().required('Email is required'),
+  username: yup.string().required('Username is required'),
+  password: yup.string().required('Password is required'),
+  confirmPassword: yup
+    .string()
+    .required('Confirm password is required')
+    .oneOf([yup.ref('password'), ''], 'Password and confirm password not match!'),
+
+});
 
 const Register: React.FC = () => {
   //* Hooks
@@ -29,7 +43,9 @@ const Register: React.FC = () => {
       email: '',
       username: '',
       password: '',
+      confirmPassword: '',
     },
+    resolver: yupResolver(schema),
   });
 
   //* React-query
@@ -40,16 +56,20 @@ const Register: React.FC = () => {
     userKeys.register(),
     registerUserService,
     {
-      onSuccess: async () => {
+      onSuccess: () => {
         method.reset();
         toast.success(TOAST_SUCCESS_MESSAGE.REGISTER);
+      },
+      onError: () => {
+        toast.error(TOAST_ERROR_MESSAGE.INVALID);
       },
     }
   );
 
   //* Functions
   const customSubmit = (data: RegisterFormTypes) => {
-    registerMutate(data);
+    const { username, email, password } = data;
+    registerMutate({ username, email, password });
   };
 
   return (
@@ -73,13 +93,6 @@ const Register: React.FC = () => {
                 <div className="p-register_form_email u-mt-24">
                   <Controller
                     name="email"
-                    rules={{
-                      required: 'Email is required',
-                      pattern: {
-                        value: new RegExp(EMAIL_REGEX),
-                        message: 'Email must have valid format',
-                      }
-                    }}
                     render={({ field, fieldState }) => (
                       <Input
                         {...field}
@@ -120,6 +133,21 @@ const Register: React.FC = () => {
                         label="Password"
                         placeholder="Password"
                         id="password"
+                        type="password"
+                        error={fieldState.error?.message}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="p-register_form_confirm_password u-mt-16">
+                  <Controller
+                    name="confirmPassword"
+                    render={({ field, fieldState }) => (
+                      <Input
+                        {...field}
+                        label="Confirm Password"
+                        placeholder="Confirm Password"
+                        id="confirm-password"
                         type="password"
                         error={fieldState.error?.message}
                       />

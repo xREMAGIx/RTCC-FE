@@ -1,12 +1,17 @@
+import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Button from 'components/atoms/Button';
 import Heading from 'components/atoms/Heading';
 import Input from 'components/atoms/Input';
 import Text from 'components/atoms/Text';
 import Container from 'components/organisms/Container';
+import { loginUserService } from 'services/user';
+import { TOAST_ERROR_MESSAGE, TOAST_SUCCESS_MESSAGE } from 'utils/constants';
+import { userKeys } from 'utils/queryKeys';
 
 export type LoginFormTypes = {
   username: string;
@@ -25,9 +30,27 @@ const Login: React.FC = () => {
     },
   });
 
+  //* React-query
+  const {
+    mutate: loginMutate,
+    isLoading: loginLoading,
+  } = useMutation(
+    userKeys.login(),
+    loginUserService,
+    {
+      onSuccess: () => {
+        method.reset();
+        toast.success(TOAST_SUCCESS_MESSAGE.LOGIN);
+      },
+      onError: () => {
+        toast.error(TOAST_ERROR_MESSAGE.INVALID);
+      },
+    }
+  );
+
   //* Functions
   const customSubmit = (data: LoginFormTypes) => {
-    console.log(data);
+    loginMutate(data);
   };
 
   return (
@@ -87,7 +110,7 @@ const Login: React.FC = () => {
                   <Button
                     modifiers={['primary', 'lg']}
                     type="submit"
-                    loading={false}
+                    loading={loginLoading}
                     onClick={method.handleSubmit(customSubmit)}
                   >
                     <Text modifiers={['16x24', '600', 'white', 'center']} content="Login" />

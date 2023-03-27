@@ -1,4 +1,4 @@
-import { LoginUserParams, RegisterUserParams } from './types';
+import { LoginUserData, LoginUserParams, RegisterUserParams } from './types';
 
 import axiosInstance from 'services/common/instance';
 
@@ -8,6 +8,7 @@ export const registerUserService = async (params: RegisterUserParams):
 };
 
 export const loginUserService = async (params: LoginUserParams):
-  Promise<void> => {
-  await axiosInstance.post('pg/report/shift-end', params);
+  Promise<LoginUserData> => {
+  const res = await axiosInstance.post('user/login', params);
+  return res.data.data;
 };

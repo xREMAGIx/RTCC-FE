@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^3.0.0",
     "@monaco-editor/react": "^4.4.6",
     "@reduxjs/toolkit": "^1.9.3",
     "@tanstack/react-query": "^4.26.1",
@@ -20,7 +21,8 @@
     "web-vitals": "^3.3.0",
     "y-monaco": "^0.1.4",
     "y-webrtc": "^10.2.4",
-    "yjs": "^13.5.50"
+    "yjs": "^13.5.50",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.5.16",

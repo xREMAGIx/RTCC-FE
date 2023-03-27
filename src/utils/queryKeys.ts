@@ -1,5 +1,6 @@
 export const userKeys = {
   all: ['users'],
+  login: () => [...userKeys.all, 'login'],
   register: () => [...userKeys.all, 'register'],
 };
 
