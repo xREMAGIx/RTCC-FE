@@ -1,3 +1,8 @@
+export const authKeys = {
+  all: ['auth'],
+  profile: (token: string) => [...authKeys.all, 'profile', token],
+};
+
 export const userKeys = {
   all: ['users'],
   login: () => [...userKeys.all, 'login'],

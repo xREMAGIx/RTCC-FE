@@ -9,8 +9,9 @@ import Heading from 'components/atoms/Heading';
 import Input from 'components/atoms/Input';
 import Text from 'components/atoms/Text';
 import Container from 'components/organisms/Container';
+import { setAccessToken } from 'services/common/storage';
 import { loginUserService } from 'services/user';
-import { TOAST_ERROR_MESSAGE, TOAST_SUCCESS_MESSAGE } from 'utils/constants';
+import { ROUTES, TOAST_ERROR_MESSAGE, TOAST_SUCCESS_MESSAGE } from 'utils/constants';
 import { userKeys } from 'utils/queryKeys';
 
 export type LoginFormTypes = {
@@ -38,9 +39,11 @@ const Login: React.FC = () => {
     userKeys.login(),
     loginUserService,
     {
-      onSuccess: () => {
+      onSuccess: (res) => {
         method.reset();
         toast.success(TOAST_SUCCESS_MESSAGE.LOGIN);
+        setAccessToken(res.token);
+        navigate(`/${ROUTES.HOME}`);
       },
       onError: () => {
         toast.error(TOAST_ERROR_MESSAGE.INVALID);

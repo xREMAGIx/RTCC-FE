@@ -1,3 +1,8 @@
+export const LOCAL_STORAGE = {
+  TOKEN: 'RTCC_TOKEN',
+  REFRESH_TOKEN: 'RTCC_REFRESH_TOKEN',
+};
+
 export const DEFAULT_QUERY_OPTION = {
   retry: 0,
   refetchOnMount: false,
@@ -6,7 +11,7 @@ export const DEFAULT_QUERY_OPTION = {
 };
 
 export const ROUTES = {
-  HOME: 'home',
+  HOME: '',
   LOGIN: 'login',
   WELCOME: 'welcome',
   ROOM: 'room',

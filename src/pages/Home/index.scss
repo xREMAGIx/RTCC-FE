@@ -1,0 +1,10 @@
+.p-home {
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: rem(16);
+        padding-bottom: rem(16);
+        border-bottom: rem(1) solid $white-smoke;
+    }
+}

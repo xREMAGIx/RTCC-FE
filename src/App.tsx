@@ -1,8 +1,8 @@
-import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import './App.scss';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React, { Suspense, useEffect } from 'react';
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import React, { Suspense } from 'react';
 import { Provider } from 'react-redux';
 import {
   BrowserRouter, Navigate, Route, RouteProps, Routes
@@ -13,9 +13,12 @@ import Loading from 'components/atoms/Loading';
 import MainLayout from 'components/templates/MainLayout';
 import { privateRoutes, routes } from 'routes';
 import { getAccessToken } from 'services/common/storage';
+import { getProfileUserService } from 'services/user';
 import { store } from 'store';
+import { setUserInfo } from 'store/auth';
 import { useAppDispatch } from 'store/hooks';
 import { DEFAULT_QUERY_OPTION, ROUTES } from 'utils/constants';
+import { authKeys } from 'utils/queryKeys';
 
 const PrivateRoute: React.FC<RouteProps> = ({
   path, index, ...props
@@ -23,12 +26,20 @@ const PrivateRoute: React.FC<RouteProps> = ({
   const token = getAccessToken();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const getProfileUser = async () => { };
-    if (token) {
-      getProfileUser();
+  const { isFetching } = useQuery(
+    authKeys.profile(token || ''),
+    getProfileUserService,
+    {
+      enabled: !!token,
+      onSuccess: (res) => {
+        dispatch(setUserInfo(res));
+      }
     }
-  }, [dispatch, token]);
+  );
+
+  if (isFetching) {
+    return <Loading isShow variant="fullScreen" />;
+  }
 
   if (!token) {
     return <Navigate to={`/${ROUTES.WELCOME}`} state={{ from: index ? '/' : path }} replace />;
