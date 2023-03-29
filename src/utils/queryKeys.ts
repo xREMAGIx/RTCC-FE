@@ -11,5 +11,7 @@ export const userKeys = {
 
 export const roomKeys = {
   all: ['rooms'],
-  register: () => [...roomKeys.all, 'register'],
+  create: () => [...roomKeys.all, 'create'],
+  delete: () => [...roomKeys.all, 'delete'],
+  list: () => [...roomKeys.all, 'list'],
 };

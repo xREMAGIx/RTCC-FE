@@ -25,7 +25,7 @@ export default {
     variant: {
       control: {
         type: 'select',
-        options: ['primary', 'secondary', 'outlineGreen', 'transparent'],
+        options: ['primary', 'secondary', 'outline', 'transparent'],
       },
       defaultValue: 'primary'
     },

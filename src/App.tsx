@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import Loading from 'components/atoms/Loading';
 import MainLayout from 'components/templates/MainLayout';
 import { privateRoutes, routes } from 'routes';
-import { getAccessToken } from 'services/common/storage';
+import { getAccessToken, removeAccessToken } from 'services/common/storage';
 import { getProfileUserService } from 'services/user';
 import { store } from 'store';
 import { setUserInfo } from 'store/auth';
@@ -33,6 +33,9 @@ const PrivateRoute: React.FC<RouteProps> = ({
       enabled: !!token,
       onSuccess: (res) => {
         dispatch(setUserInfo(res));
+      },
+      onError: () => {
+        removeAccessToken();
       }
     }
   );

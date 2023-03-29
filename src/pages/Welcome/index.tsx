@@ -107,7 +107,7 @@ const Welcome: React.FC = () => {
           <div className="p-welcome_auth_btns u-mt-24">
             <div className="p-welcome_auth_btn">
               <Button
-                modifiers={['outlineGreen', 'lg']}
+                modifiers={['outline', 'lg']}
                 type="button"
                 onClick={handleRegister}
               >
@@ -116,7 +116,7 @@ const Welcome: React.FC = () => {
             </div>
             <div className="p-welcome_auth_btn">
               <Button
-                modifiers={['outlineGreen', 'lg']}
+                modifiers={['outline', 'lg']}
                 type="button"
                 onClick={handleLogin}
               >
