@@ -7,4 +7,12 @@
         padding-bottom: rem(16);
         border-bottom: rem(1) solid $white-smoke;
     }
+
+    &_room {
+        &_item {
+            &:not(:first-child) {
+                margin-top: rem(12);
+            }
+        }
+    }
 }

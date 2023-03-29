@@ -45,11 +45,11 @@
     }
 
     &-secondary {
-        border: 1px solid $grayx11;
-        background: $gainsboro;
+        border: 1px solid transparent;
+        background: $crayola;
     }
 
-    &-outlineGreen {
+    &-outline {
         background: $white;
         border: 1px solid $crayola;
     }

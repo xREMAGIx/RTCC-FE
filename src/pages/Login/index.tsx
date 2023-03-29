@@ -123,7 +123,7 @@ const Login: React.FC = () => {
             </FormProvider>
             <div className="p-login_back_btn u-mt-24">
               <Button
-                modifiers={['outlineGreen', 'lg']}
+                modifiers={['outline', 'lg']}
                 type="button"
                 onClick={() => { navigate(-1); }}
               >

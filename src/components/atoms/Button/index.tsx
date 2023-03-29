@@ -6,7 +6,7 @@ import Icon, { IconName, IconSize } from 'components/atoms/Icon';
 import mapModifiers from 'utils/functions';
 
 type Sizes = 'md' | 'lg';
-type Variant = 'primary' | 'secondary' | 'outlineGreen' | 'transparent' | 'inline' | 'error';
+type Variant = 'primary' | 'secondary' | 'outline' | 'transparent' | 'inline' | 'error';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   modifiers?: (Variant | Sizes)[];
