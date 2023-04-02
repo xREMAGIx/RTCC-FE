@@ -21,7 +21,7 @@
     "typescript": "^4.9.5",
     "web-vitals": "^3.3.0",
     "y-monaco": "^0.1.4",
-    "y-webrtc": "^10.2.4",
+    "y-websocket": "^1.5.0",
     "yjs": "^13.5.50",
     "yup": "^1.0.2"
   },

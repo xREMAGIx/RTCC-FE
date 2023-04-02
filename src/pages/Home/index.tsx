@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useMemo, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { CreateRoomModal, CreateRoomModalRef } from './createRoomModal';
@@ -13,11 +14,12 @@ import Container from 'components/organisms/Container';
 import { deleteRoomService, getAllRoomService } from 'services/room';
 import { RoomData } from 'services/room/types';
 import { useAppSelector } from 'store/hooks';
-import { TOAST_ERROR_MESSAGE } from 'utils/constants';
+import { ROUTES, TOAST_ERROR_MESSAGE } from 'utils/constants';
 import { roomKeys } from 'utils/queryKeys';
 
 const Home: React.FC = () => {
   //* Hooks
+  const navigation = useNavigate();
   const queryClient = useQueryClient();
 
   //* Stores
@@ -76,6 +78,10 @@ const Home: React.FC = () => {
     });
   };
 
+  const handleJoinRoom = (code: string) => {
+    navigation(`/${ROUTES.ROOM}/${code}`);
+  };
+
   return (
     <>
       <Container>
@@ -108,6 +114,9 @@ const Home: React.FC = () => {
                     name={ele.name}
                     description={ele.description}
                     isDeleteLoading={deleteRoomLoading}
+                    handleJoin={() => {
+                      handleJoinRoom(ele.code);
+                    }}
                     handleDelete={() => {
                       handleDeleteRoom(ele.id);
                     }}

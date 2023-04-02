@@ -31,6 +31,6 @@ export const privateRoutes = [
   {
     path: ROUTES.ROOM,
     element: <Room />,
-    pathName: '/:slug'
+    pathName: '/:code'
   },
 ];
