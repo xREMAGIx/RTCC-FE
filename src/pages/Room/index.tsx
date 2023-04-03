@@ -1,75 +1,136 @@
 import Editor from '@monaco-editor/react';
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MonacoBinding } from 'y-monaco';
 import { WebsocketProvider } from 'y-websocket';
 import * as Y from 'yjs';
 
 import { MonacoStandaloneCodeEditor } from './types';
 
+import Button from 'components/atoms/Button';
+import Heading from 'components/atoms/Heading';
+import Text from 'components/atoms/Text';
+import Container from 'components/organisms/Container';
+import { ROUTES } from 'utils/constants';
 import { stringToColour } from 'utils/functions';
 
-const doc = new Y.Doc();
-const wsProvider = new WebsocketProvider('ws://localhost:1234', 'my-roomname', doc);
-const yText = doc.getText('monaco'); // doc { "monaco": "what our IDE is showing" }
-
 const Room: React.FC = () => {
+  //* Hooks
+  const navigation = useNavigate();
+  const { code: roomId } = useParams();
+
   //* States
-  const [clientIds, setClientIds] = useState<number[]>([]);
+  const [ydoc, setYdoc] = useState<Y.Doc | null>(null);
+  const [editor, setEditor] = useState<MonacoStandaloneCodeEditor>();
 
   //* Refs
   const editorRef = useRef<MonacoStandaloneCodeEditor | null>(null);
+  const clientIdsRef = useRef<number[]>([]);
+
+  //* Functions
+  const handleLeaveRoom = () => {
+    navigation(`/${ROUTES.HOME}`);
+  };
 
   const handleEditorDidMount = (currentEditor: MonacoStandaloneCodeEditor) => {
     editorRef.current = currentEditor;
-    const model = editorRef.current?.getModel();
-    if (model) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const binding = new MonacoBinding(
-        yText,
-        model,
-        new Set([editorRef.current]),
-
-        wsProvider.awareness
-      );
-    }
+    setEditor(currentEditor);
   };
 
-  wsProvider.awareness.on('update', ({ added, updated, removed }: { added: number[], updated: number[], removed: number[] }) => {
-    let list = [...clientIds];
+  const handleCursors = ({ added, updated, removed }:
+    { added: number[], updated: number[], removed: number[] }) => {
+    let list = [...clientIdsRef.current];
     added.forEach((ele) => {
-      if (!clientIds.includes(ele)) {
+      if (!list.includes(ele)) {
         list.push(ele);
       }
     });
     updated.forEach((ele) => {
-      if (!clientIds.includes(ele)) {
+      if (!list.includes(ele)) {
         list.push(ele);
       }
     });
     removed.forEach((ele) => {
-      if (!clientIds.includes(ele)) {
+      if (!list.includes(ele)) {
         list = list.filter((item) => item !== ele);
       }
     });
-    setClientIds(list);
-  });
 
-  wsProvider.on('status', (event: any) => {
-    console.log(event.status); // logs "connected" or "disconnected"
-  });
-
-  useEffect(() => {
-    clientIds.forEach((ele) => {
+    list.forEach((ele) => {
       const remoteCursor = document.querySelector<HTMLDivElement>(`.yRemoteSelectionHead-${ele}`);
       if (remoteCursor) {
         const color = stringToColour(ele.toString());
-        remoteCursor.style.setProperty('--cursor-color', color);
+        remoteCursor.style.borderColor = color;
       }
     });
-  }, [clientIds]);
+    clientIdsRef.current = list;
+  };
+
+  //* Effects
+  useEffect(() => {
+    if (!ydoc) {
+      const doc = new Y.Doc();
+      setYdoc(doc);
+    }
+  }, [ydoc]);
+
+  useEffect(() => {
+    if (roomId && ydoc) {
+      const websocket = new WebSocket(`ws://localhost:8080/${roomId}`);
+      const wsProvider = new WebsocketProvider('ws://localhost:1234', roomId, ydoc);
+
+      const yText = ydoc?.getText('monaco');
+
+      // Set up event listeners for updates
+      // yText?.observe(() => {
+      //   // Update the state of your component with the new data
+      //   console.log('New text:', yText.toString());
+      // });
+
+      const model = editor?.getModel();
+
+      if (model && editor) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const binding = new MonacoBinding(
+          yText,
+          model,
+          new Set([editor]),
+
+          wsProvider.awareness
+        );
+      }
+
+      wsProvider.awareness.on('update', handleCursors);
+
+      return () => {
+        wsProvider.disconnect();
+        websocket.close();
+      };
+    }
+
+    return () => { };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roomId, ydoc, editor]);
 
   return (
     <div className="p-room">
+      <Container>
+        <div className="p-room_header">
+          <Heading
+            modifiers={['20x30', 'eerieBlack', '700']}
+            content={`Room: ${roomId}`}
+          />
+          <div className="p-home_create_room_btn">
+            <Button
+              modifiers={['primary', 'lg']}
+              type="button"
+              onClick={handleLeaveRoom}
+            >
+              <Text modifiers={['16x24', '600', 'white', 'center']} content="Leave room" />
+            </Button>
+          </div>
+        </div>
+      </Container>
       <div
         className="p-room_editor"
       >

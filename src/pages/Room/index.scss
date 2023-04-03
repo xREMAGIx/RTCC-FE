@@ -19,3 +19,14 @@
     left: -4px;
     top: -5px;
 }
+
+.p-room {
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: rem(16);
+        padding-bottom: rem(16);
+        border-bottom: rem(1) solid $white-smoke;
+    }
+}
