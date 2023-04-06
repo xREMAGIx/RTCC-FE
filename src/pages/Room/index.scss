@@ -29,4 +29,19 @@
         padding-bottom: rem(16);
         border-bottom: rem(1) solid $white-smoke;
     }
+
+    &_info {
+        display: flex;
+        align-items: center;
+
+        &_clients {
+            display: flex;
+            align-items: center;
+            margin-left: rem(16);
+        }
+
+        &_clientText {
+            margin-left: rem(4);
+        }
+    }
 }

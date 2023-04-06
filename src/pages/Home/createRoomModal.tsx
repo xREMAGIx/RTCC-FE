@@ -76,7 +76,7 @@ export const CreateRoomModal = forwardRef<CreateRoomModalRef, CreateRoomModalPro
   };
 
   return (
-    <CustomModal isOpen={isOpen} modifiers={['width-992']}>
+    <CustomModal isOpen={isOpen} handleClose={() => setIsOpen(false)} modifiers={['width-992']}>
       <div className="p-home_create_room_modal">
         <Heading type="h3" modifiers={['center', '32x42', '700', 'smokyBlack']}>Create Room</Heading>
         <div className="p-home_create_room_modal_form u-mt-32">

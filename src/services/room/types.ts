@@ -26,3 +26,7 @@ export interface RoomData {
 export interface DeleteRoomParams {
   id: number;
 }
+
+export interface GetRoomByCodeParams {
+  code: string;
+}
