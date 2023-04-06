@@ -1,6 +1,7 @@
 import Editor from '@monaco-editor/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { MonacoBinding } from 'y-monaco';
 import { WebsocketProvider } from 'y-websocket';
 import * as Y from 'yjs';
@@ -9,8 +10,10 @@ import { MonacoStandaloneCodeEditor } from './types';
 
 import Button from 'components/atoms/Button';
 import Heading from 'components/atoms/Heading';
+import Icon from 'components/atoms/Icon';
 import Text from 'components/atoms/Text';
 import Container from 'components/organisms/Container';
+import { useAppSelector } from 'store/hooks';
 import { ROUTES } from 'utils/constants';
 import { stringToColour } from 'utils/functions';
 
@@ -19,7 +22,11 @@ const Room: React.FC = () => {
   const navigation = useNavigate();
   const { code: roomId } = useParams();
 
+  //* Stores
+  const { userInfo } = useAppSelector((state) => state.auth);
+
   //* States
+  const [clientsCount, setClientsCount] = useState(0);
   const [ydoc, setYdoc] = useState<Y.Doc | null>(null);
   const [editor, setEditor] = useState<MonacoStandaloneCodeEditor>();
 
@@ -75,8 +82,8 @@ const Room: React.FC = () => {
   }, [ydoc]);
 
   useEffect(() => {
-    if (roomId && ydoc) {
-      const websocket = new WebSocket(`ws://localhost:8080/${roomId}`);
+    if (roomId && ydoc && editor && userInfo) {
+      const websocket = new WebSocket(`ws://localhost:8080?roomId=${roomId}&userId=${userInfo?.id || ''}`);
       const wsProvider = new WebsocketProvider('ws://localhost:1234', roomId, ydoc);
 
       const yText = ydoc?.getText('monaco');
@@ -100,7 +107,29 @@ const Room: React.FC = () => {
         );
       }
 
+      wsProvider.awareness.on('change', () => {
+
+      });
       wsProvider.awareness.on('update', handleCursors);
+
+      websocket.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+
+        if (Number(message.payload.userId) === Number(userInfo.id)) return;
+
+        switch (message.type) {
+          case 'room-clients':
+            setClientsCount(message.payload.clientsCount || 0);
+            break;
+          case 'user-joined':
+            toast.info(`${message.payload.name} joined the room`);
+            break;
+          case 'user-leaved':
+            toast.info(`${message.payload.name} leaved the room`);
+            break;
+          // Handle other message types
+        }
+      };
 
       return () => {
         wsProvider.disconnect();
@@ -110,17 +139,29 @@ const Room: React.FC = () => {
 
     return () => { };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [roomId, ydoc, editor]);
+  }, [roomId, ydoc, editor, userInfo]);
 
   return (
     <div className="p-room">
       <Container>
         <div className="p-room_header">
-          <Heading
-            modifiers={['20x30', 'eerieBlack', '700']}
-            content={`Room: ${roomId}`}
-          />
-          <div className="p-home_create_room_btn">
+          <div className="p-room_info">
+            <Heading
+              modifiers={['20x30', 'eerieBlack', '700']}
+              content={`Room: ${roomId}`}
+            />
+            <div className="p-room_info_clients">
+              <Icon iconName="hr" />
+              <div className="p-room_info_clientText">
+                <Text
+                  modifiers={['16x24', '600', 'center']}
+                >
+                  {clientsCount}
+                </Text>
+              </div>
+            </div>
+          </div>
+          <div className="p-room_create_room_btn">
             <Button
               modifiers={['primary', 'lg']}
               type="button"

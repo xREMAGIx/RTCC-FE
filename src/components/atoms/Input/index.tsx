@@ -13,6 +13,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   subLabel?: string;
   error?: string;
+  isError?: boolean;
 }
 
 const InputRef: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({
@@ -21,6 +22,7 @@ const InputRef: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   label,
   subLabel,
   error,
+  isError,
   ...props
 }, ref) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -43,6 +45,7 @@ const InputRef: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         'a-input',
         type,
         error && 'error',
+        isError && 'error',
       )}
     >
       {label && (

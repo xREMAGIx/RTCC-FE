@@ -14,4 +14,5 @@ export const roomKeys = {
   create: () => [...roomKeys.all, 'create'],
   delete: () => [...roomKeys.all, 'delete'],
   list: () => [...roomKeys.all, 'list'],
+  joinByCode: () => [...roomKeys.all, 'code'],
 };

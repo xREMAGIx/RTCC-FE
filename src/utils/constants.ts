@@ -30,5 +30,6 @@ export const TOAST_SUCCESS_MESSAGE = {
 
 export const TOAST_ERROR_MESSAGE = {
   INVALID: 'Error! Please recheck info!',
-  GENERAL: 'Error! Please retry again!'
+  GENERAL: 'Error! Please retry again!',
+  ROOM_NOT_FOUND: 'Room not found! Please try again!'
 };

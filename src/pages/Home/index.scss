@@ -8,11 +8,28 @@
         border-bottom: rem(1) solid $white-smoke;
     }
 
+    &_join_input {
+        flex: 0 1 50%;
+
+        &_wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &_code {
+            flex: 1;
+        }
+
+        &_submit {
+            margin-left: rem(8);
+            flex-basis: rem(80);
+        }
+    }
+
     &_room {
         &_item {
-            &:not(:first-child) {
-                margin-top: rem(12);
-            }
+            margin-top: rem(12);
         }
     }
 }
